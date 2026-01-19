@@ -1,0 +1,58 @@
+{
+  "name": "goal-pilot",
+  "version": "1.0.0",
+  "description": "Personal goal achievement pilot with dynamic review and calibration. Features structured data persistence (CSV/JSON), layered context decay, automatic task adjustment based on patterns, and milestone tracking. Transforms annual goals into actionable daily tasks. Supports English, 中文, 日本語.",
+  "author": {
+    "name": "Hzzy2O",
+    "url": "https://github.com/Hzzy2O"
+  },
+  "license": "MIT",
+  "keywords": [
+    "goals",
+    "achievement",
+    "tasks",
+    "planning",
+    "review",
+    "time-management",
+    "calibration",
+    "data-driven"
+  ],
+  "skills": [
+    {
+      "name": "goal-pilot",
+      "path": "skills/goal-pilot"
+    },
+    {
+      "name": "goal-data",
+      "path": "skills/goal-data"
+    }
+  ],
+  "commands": [
+    {
+      "name": "setup",
+      "path": "commands/setup.md"
+    },
+    {
+      "name": "today",
+      "path": "commands/today.md"
+    },
+    {
+      "name": "review",
+      "path": "commands/review.md"
+    }
+  ],
+  "agents": [
+    {
+      "name": "planner",
+      "path": "agents/planner.md"
+    },
+    {
+      "name": "calibrator",
+      "path": "agents/calibrator.md"
+    },
+    {
+      "name": "domain_analyst",
+      "path": "agents/domain_analyst.md"
+    }
+  ]
+}

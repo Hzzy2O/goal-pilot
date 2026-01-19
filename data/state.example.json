@@ -1,0 +1,73 @@
+{
+  "schema_version": "2.0",
+  "user": {
+    "language": "zh",
+    "timezone": "Asia/Shanghai"
+  },
+  "goal": {
+    "statement": "",
+    "target_date": "",
+    "north_star_metric": ""
+  },
+  "plan": {
+    "current_phase": "Q1-Validate",
+    "milestones": [
+      {
+        "id": "M1",
+        "due": "",
+        "definition_of_done": "",
+        "weight": 0.25,
+        "completed_weight": 0.0
+      },
+      {
+        "id": "M2",
+        "due": "",
+        "definition_of_done": "",
+        "weight": 0.25,
+        "completed_weight": 0.0
+      },
+      {
+        "id": "M3",
+        "due": "",
+        "definition_of_done": "",
+        "weight": 0.25,
+        "completed_weight": 0.0
+      },
+      {
+        "id": "M4",
+        "due": "",
+        "definition_of_done": "",
+        "weight": 0.25,
+        "completed_weight": 0.0
+      }
+    ]
+  },
+  "domains": [],
+  "calibration": {
+    "decay": {
+      "daily_half_life_days": 30,
+      "weekly_half_life_days": 120
+    },
+    "thresholds": {
+      "behind_ratio_yellow": 0.15,
+      "behind_ratio_red": 0.30
+    },
+    "task_adjustment": {
+      "force_small_steps": false,
+      "force_split_outcomes": false,
+      "low_friction_mode": false
+    },
+    "deviation_counters": {
+      "unclear_next_action": 0,
+      "scope_too_big": 0,
+      "low_energy": 0,
+      "last_reset_date": ""
+    }
+  },
+  "last_run": {
+    "today": "",
+    "last_review": "",
+    "last_calibration": ""
+  },
+  "migration_note": ""
+}
