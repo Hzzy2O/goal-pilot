@@ -1,9 +1,5 @@
 {
-  "name": "goal-pilot",
-  "owner": {
-    "name": "Hzzy2O",
-    "url": "https://github.com/Hzzy2O"
-  },
+  "name": "goal-pilot-marketplace",
   "plugins": [
     {
       "name": "goal-pilot",
