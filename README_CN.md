@@ -24,14 +24,14 @@
 ### 通过 Claude Code CLI
 
 ```bash
-/plugin marketplace add github:duoduohe/goal-pilot-plugin
+/plugin marketplace add github:duoduohe/goal-pilot
 ```
 
 ### 手动安装
 
 ```bash
-git clone https://github.com/duoduohe/goal-pilot-plugin.git
-cd goal-pilot-plugin
+git clone https://github.com/duoduohe/goal-pilot.git
+cd goal-pilot
 claude plugin install .
 ```
 

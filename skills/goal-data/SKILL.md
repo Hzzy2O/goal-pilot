@@ -147,7 +147,7 @@ When applying updates (patches):
 
 ```json
 {
-  "schema_version": "2.0",
+  "schema_version": "2.1",
   "user": {
     "language": "zh|en|ja",
     "timezone": "Asia/Shanghai"

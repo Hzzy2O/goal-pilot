@@ -41,7 +41,7 @@ data/
 Claude Memory only stores lightweight pointers:
 
 ```
-GTD_DATA_PATH: ./data
+GP_DATA_PATH: ./data
 GP_LANG: zh
 GP_LAST_SESSION_DATE: 2026-01-19
 ```
@@ -187,7 +187,7 @@ After user provides goal information via `/goal-pilot:setup`:
 
 1. Create `data/state.json` with schema
 2. Create empty CSV files with headers
-3. Store Memory pointers (GTD_DATA_PATH, GP_LANG, GP_LAST_SESSION_DATE)
+3. Store Memory pointers (GP_DATA_PATH, GP_LANG, GP_LAST_SESSION_DATE)
 4. Display goal framework summary
 
 ### Step 2: Daily Task Generation (/goal-pilot:today)
