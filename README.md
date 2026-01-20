@@ -68,7 +68,6 @@ Or use natural language:
 
 ```
 What should I do today?
-今天做什么？
 ```
 
 Claude will:
@@ -110,11 +109,11 @@ Claude will:
 
 | Phrase | Maps To |
 |--------|---------|
-| "What's today's task?" / "今天做什么" | `/goal-pilot:today` |
-| "Do a review" / "做复盘" | `/goal-pilot:review` |
-| "Weekly review" / "周复盘" | `/goal-pilot:review week` |
-| "Show progress" / "查看进度" | Display state.json summary |
-| "Reset goal" / "重置目标" | Clear data, start fresh |
+| "What's today's task?" | `/goal-pilot:today` |
+| "Do a review" | `/goal-pilot:review` |
+| "Weekly review" | `/goal-pilot:review week` |
+| "Show progress" | Display state.json summary |
+| "Reset goal" | Clear data, start fresh |
 
 ## Calibration System
 

@@ -14,3 +14,6 @@ package-lock.json
 
 # Logs
 *.log
+.claude
+.ace-tool
+CLAUDE.md

@@ -68,7 +68,6 @@ Claude 将会：
 
 ```
 今天做什么？
-What's today's task?
 ```
 
 Claude 将会：
@@ -110,11 +109,11 @@ Claude 将会：
 
 | 短语 | 映射到 |
 |------|--------|
-| "今天做什么" / "What's today's task?" | `/goal-pilot:today` |
-| "做复盘" / "Do review" | `/goal-pilot:review` |
-| "周复盘" / "Weekly review" | `/goal-pilot:review week` |
-| "查看进度" / "Show progress" | 显示 state.json 摘要 |
-| "重置目标" / "Reset goal" | 清除数据，重新开始 |
+| "今天做什么" | `/goal-pilot:today` |
+| "做复盘" | `/goal-pilot:review` |
+| "周复盘" | `/goal-pilot:review week` |
+| "查看进度" | 显示 state.json 摘要 |
+| "重置目标" | 清除数据，重新开始 |
 
 ## 校准系统
 
@@ -130,7 +129,7 @@ Claude 将会：
 
 ### 进度偏差警报
 
-| behind_ratio | 警报级别 | 动作 |
+| 落后比率 | 警报级别 | 动作 |
 |--------------|----------|------|
 | < 15% | 正常 | 正常运行 |
 | 15-30% | 黄色 | 建议缩小范围 |
