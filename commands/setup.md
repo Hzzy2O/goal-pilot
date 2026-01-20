@@ -71,27 +71,24 @@ Example of CORRECT behavior:
 # Now use 2026 as current year
 ```
 
-## Workflow
+## Workflow (MUST FOLLOW IN ORDER)
 
-### Step 1: Get Current Date (REQUIRED)
+**CRITICAL: You MUST complete each phase before proceeding to the next. Do NOT skip any phase.**
 
-```
-1. Run: date +%Y-%m-%d
-2. Store result as TODAY_DATE
-3. Use TODAY_DATE for all "[today]" placeholders
-```
-
-### Step 2: Check Existing Data
+### Phase 0: Initialize
 
 ```
-1. Check if data/state.json already exists
+1. Run: date +%Y-%m-%d → Store as TODAY_DATE
+2. Check if data/state.json exists
    - If exists: Ask if user wants to reset or update
-   - If not: Fresh setup
+   - If not: Proceed to Phase 1
 ```
 
-### Step 3: Collect Goal Information
+---
 
-Use AskUserQuestion tool to collect goal information:
+### Phase 1: Basic Info (REQUIRED - DO NOT SKIP)
+
+**You MUST call AskUserQuestion and wait for response before proceeding.**
 
 ```
 AskUserQuestion({
@@ -106,39 +103,20 @@ AskUserQuestion({
         { label: "Career", description: "Promotion, job change, skills" }
       ],
       multiSelect: false
-    }
-  ]
-})
-```
-
-Then ask for specifics based on goal type:
-
-```
-AskUserQuestion({
-  questions: [
+    },
     {
       header: "Timeline",
       question: "When do you want to achieve this goal?",
       options: [
         { label: "3 months", description: "Short-term intensive" },
         { label: "6 months", description: "Medium-term focused" },
-        { label: "12 months", description: "Full year plan" },
-        { label: "Custom", description: "Specify your own date" }
+        { label: "12 months", description: "Full year plan" }
       ],
       multiSelect: false
-    }
-  ]
-})
-```
-
-For language preference:
-
-```
-AskUserQuestion({
-  questions: [
+    },
     {
       header: "Language",
-      question: "Preferred language for Goal Pilot responses?",
+      question: "Preferred language for Goal Pilot?",
       options: [
         { label: "English", description: "English responses" },
         { label: "中文", description: "Chinese responses" },
@@ -150,11 +128,77 @@ AskUserQuestion({
 })
 ```
 
-**Note**: For open-ended questions like "Goal Statement" or "North Star Metric", use AskUserQuestion with the "Other" option (automatically included) to allow free-form input.
+**After receiving response**: Store Goal Type, Timeline, Language. Then proceed to Phase 2.
 
-### Step 4: Assess Current Situation (NEW - IMPORTANT)
+---
 
-After collecting goal, assess user's starting point using AskUserQuestion:
+### Phase 2: Goal Details (REQUIRED - DO NOT SKIP)
+
+**You MUST call AskUserQuestion and wait for response before proceeding.**
+
+Ask user to describe their specific goal (they will use "Other" to input free text):
+
+```
+AskUserQuestion({
+  questions: [
+    {
+      header: "Goal Statement",
+      question: "Describe your specific goal (be measurable, e.g. 'Reach $10K MRR' or 'Lose 10kg')",
+      options: [
+        { label: "Example: Reach $10K MRR", description: "Revenue target" },
+        { label: "Example: Lose 10kg", description: "Weight loss target" },
+        { label: "Example: Pass JLPT N2", description: "Certification target" }
+      ],
+      multiSelect: false
+    }
+  ]
+})
+```
+
+**After receiving response**: Store Goal Statement. Then proceed to Phase 3.
+
+---
+
+### Phase 3: Time Budget (REQUIRED - DO NOT SKIP)
+
+**You MUST call AskUserQuestion and wait for response before proceeding.**
+
+```
+AskUserQuestion({
+  questions: [
+    {
+      header: "Daily Hours",
+      question: "How many hours PER DAY can you dedicate to this goal?",
+      options: [
+        { label: "30 minutes", description: "Minimal, squeezed from busy schedule" },
+        { label: "1 hour", description: "Focused daily session" },
+        { label: "2 hours", description: "Significant daily commitment" },
+        { label: "3+ hours", description: "Major time investment" }
+      ],
+      multiSelect: false
+    },
+    {
+      header: "Best Time",
+      question: "When are you most productive?",
+      options: [
+        { label: "Morning (6-12)", description: "Early bird" },
+        { label: "Afternoon (12-18)", description: "Midday focus" },
+        { label: "Evening (18-24)", description: "Night owl" },
+        { label: "Flexible", description: "Varies by day" }
+      ],
+      multiSelect: false
+    }
+  ]
+})
+```
+
+**After receiving response**: Store Daily Hours, Best Time. Then proceed to Phase 4.
+
+---
+
+### Phase 4: Current Situation (REQUIRED - DO NOT SKIP)
+
+**You MUST call AskUserQuestion and wait for response before proceeding.**
 
 ```
 AskUserQuestion({
@@ -169,59 +213,15 @@ AskUserQuestion({
         { label: "Advanced", description: "Close to goal, need final push" }
       ],
       multiSelect: false
-    }
-  ]
-})
-```
-
-For specific metrics, prompt user to provide current values (via "Other" option).
-
-### Step 5: Assess Resources & Constraints (NEW - IMPORTANT)
-
-Use AskUserQuestion to collect resource information:
-
-```
-AskUserQuestion({
-  questions: [
-    {
-      header: "Weekly Hours",
-      question: "How many hours per week can you dedicate to this goal?",
-      options: [
-        { label: "5-10 hours", description: "Part-time, limited availability" },
-        { label: "10-20 hours", description: "Side project level" },
-        { label: "20-40 hours", description: "Significant commitment" },
-        { label: "40+ hours", description: "Full-time focus" }
-      ],
-      multiSelect: false
     },
-    {
-      header: "Work Style",
-      question: "When are you most productive?",
-      options: [
-        { label: "Morning (6am-12pm)", description: "Early bird" },
-        { label: "Afternoon (12pm-6pm)", description: "Midday focus" },
-        { label: "Evening (6pm-12am)", description: "Night owl" },
-        { label: "Flexible", description: "Varies by day" }
-      ],
-      multiSelect: false
-    }
-  ]
-})
-```
-
-For team/support:
-
-```
-AskUserQuestion({
-  questions: [
     {
       header: "Support",
       question: "Do you have help or working solo?",
       options: [
         { label: "Solo", description: "Working alone" },
-        { label: "Partner/Co-founder", description: "Have a partner" },
-        { label: "Small team", description: "2-5 people" },
-        { label: "Can hire", description: "Budget for freelancers/contractors" }
+        { label: "Partner", description: "Have a partner/co-founder" },
+        { label: "Team", description: "Have a team" },
+        { label: "Can hire", description: "Budget for help" }
       ],
       multiSelect: false
     }
@@ -229,11 +229,17 @@ AskUserQuestion({
 })
 ```
 
-### Step 6: Assess Skills & Experience (NEW - IMPORTANT)
+**After receiving response**: Store Starting Point, Support. Then proceed to Phase 5.
 
-Based on the goal type, use AskUserQuestion to collect skill information:
+---
 
-**For Product/Business Goals:**
+### Phase 5: Skills Assessment (REQUIRED - DO NOT SKIP)
+
+**You MUST call AskUserQuestion and wait for response before proceeding.**
+
+Based on Goal Type from Phase 1, ask the appropriate skill questions:
+
+**If Goal Type = Product/Business:**
 ```
 AskUserQuestion({
   questions: [
@@ -241,20 +247,20 @@ AskUserQuestion({
       header: "Tech Skills",
       question: "What's your technical capability?",
       options: [
-        { label: "Non-technical", description: "Need to hire for dev work" },
-        { label: "Basic", description: "Can do simple tasks, need help for complex" },
+        { label: "Non-technical", description: "Need to hire for dev" },
+        { label: "Basic", description: "Simple tasks only" },
         { label: "Intermediate", description: "Can build most features" },
-        { label: "Expert", description: "Full-stack, can build anything" }
+        { label: "Expert", description: "Full-stack capable" }
       ],
       multiSelect: false
     },
     {
-      header: "Business Skills",
+      header: "Strengths",
       question: "Which areas are you strongest in?",
       options: [
         { label: "Marketing", description: "Content, SEO, ads" },
-        { label: "Sales", description: "Outreach, closing deals" },
-        { label: "Product", description: "User research, prioritization" },
+        { label: "Sales", description: "Outreach, closing" },
+        { label: "Product", description: "User research" },
         { label: "Operations", description: "Process, systems" }
       ],
       multiSelect: true
@@ -263,7 +269,7 @@ AskUserQuestion({
 })
 ```
 
-**For Fitness Goals:**
+**If Goal Type = Fitness:**
 ```
 AskUserQuestion({
   questions: [
@@ -271,20 +277,20 @@ AskUserQuestion({
       header: "Exercise Level",
       question: "How often do you currently exercise?",
       options: [
-        { label: "Rarely", description: "Less than once a week" },
-        { label: "Sometimes", description: "1-2 times per week" },
-        { label: "Regular", description: "3-4 times per week" },
-        { label: "Daily", description: "5+ times per week" }
+        { label: "Rarely", description: "< 1x per week" },
+        { label: "Sometimes", description: "1-2x per week" },
+        { label: "Regular", description: "3-4x per week" },
+        { label: "Daily", description: "5+ per week" }
       ],
       multiSelect: false
     },
     {
-      header: "Gym Access",
-      question: "What equipment do you have access to?",
+      header: "Equipment",
+      question: "What equipment do you have?",
       options: [
         { label: "None", description: "Bodyweight only" },
-        { label: "Home gym", description: "Basic equipment at home" },
-        { label: "Gym membership", description: "Full gym access" }
+        { label: "Home gym", description: "Basic equipment" },
+        { label: "Gym membership", description: "Full access" }
       ],
       multiSelect: false
     }
@@ -292,7 +298,7 @@ AskUserQuestion({
 })
 ```
 
-**For Learning Goals:**
+**If Goal Type = Learning:**
 ```
 AskUserQuestion({
   questions: [
@@ -300,10 +306,10 @@ AskUserQuestion({
       header: "Current Level",
       question: "What's your current skill level?",
       options: [
-        { label: "Beginner", description: "Just starting out" },
+        { label: "Beginner", description: "Just starting" },
         { label: "Elementary", description: "Know basics" },
         { label: "Intermediate", description: "Can handle common tasks" },
-        { label: "Advanced", description: "Proficient, refining skills" }
+        { label: "Advanced", description: "Refining skills" }
       ],
       multiSelect: false
     },
@@ -311,8 +317,8 @@ AskUserQuestion({
       header: "Learning Style",
       question: "How do you learn best?",
       options: [
-        { label: "Video courses", description: "Structured video content" },
-        { label: "Reading", description: "Books, articles, docs" },
+        { label: "Video", description: "Courses, tutorials" },
+        { label: "Reading", description: "Books, docs" },
         { label: "Practice", description: "Hands-on projects" },
         { label: "Mentorship", description: "1-on-1 guidance" }
       ],
@@ -322,7 +328,54 @@ AskUserQuestion({
 })
 ```
 
-### Step 7: Generate Personalized Milestones
+**If Goal Type = Career:**
+```
+AskUserQuestion({
+  questions: [
+    {
+      header: "Experience",
+      question: "Years of experience in target field?",
+      options: [
+        { label: "< 1 year", description: "Just starting" },
+        { label: "1-3 years", description: "Early career" },
+        { label: "3-7 years", description: "Mid career" },
+        { label: "7+ years", description: "Senior level" }
+      ],
+      multiSelect: false
+    },
+    {
+      header: "Gap",
+      question: "What's your biggest gap to close?",
+      options: [
+        { label: "Technical skills", description: "Hard skills" },
+        { label: "Leadership", description: "Management skills" },
+        { label: "Network", description: "Connections" },
+        { label: "Visibility", description: "Recognition" }
+      ],
+      multiSelect: false
+    }
+  ]
+})
+```
+
+**After receiving response**: Store Skills data. Then proceed to Phase 6.
+
+---
+
+### Phase 6: Generate Milestones (ONLY AFTER PHASES 1-5 COMPLETE)
+
+**STOP! Before proceeding, verify you have collected:**
+- [ ] Goal Type (Phase 1)
+- [ ] Timeline (Phase 1)
+- [ ] Language (Phase 1)
+- [ ] Goal Statement (Phase 2)
+- [ ] Daily Hours (Phase 3)
+- [ ] Best Time (Phase 3)
+- [ ] Starting Point (Phase 4)
+- [ ] Support (Phase 4)
+- [ ] Skills (Phase 5)
+
+**If any item is missing, go back and collect it.**
 
 **IMPORTANT: Before generating milestones, run `date +%Y-%m-%d` again to get current date.**
 
@@ -337,7 +390,7 @@ Based on ALL collected information, generate milestones that account for:
 
 Based on your background:
 - Starting from: [current situation]
-- Weekly capacity: [X hours]
+- Daily capacity: [X hours/day]
 - Key strength: [identified strength]
 - Key gap: [skill to develop]
 
@@ -351,7 +404,32 @@ Based on your background:
 Does this look right? Say "confirm" or suggest changes.
 ```
 
-### Step 8: Create Data Files
+### Phase 7: Confirm Milestones (REQUIRED)
+
+**You MUST call AskUserQuestion to confirm milestones before creating files.**
+
+```
+AskUserQuestion({
+  questions: [
+    {
+      header: "Confirm Plan",
+      question: "Does this milestone plan look good to you?",
+      options: [
+        { label: "Yes, looks good", description: "Proceed with setup" },
+        { label: "Adjust timeline", description: "Change milestone dates" },
+        { label: "Adjust scope", description: "Change milestone targets" }
+      ],
+      multiSelect: false
+    }
+  ]
+})
+```
+
+**After confirmation**: Proceed to Phase 8.
+
+---
+
+### Phase 8: Create Data Files
 
 **IMPORTANT: Before creating files, run `date +%Y-%m-%d` again to ensure correct date in state.json.**
 
@@ -378,21 +456,12 @@ After user confirms:
       "gap_analysis": "[calculated gap]"
     },
     "resources": {
-      "weekly_hours": "[number]",
-      "best_times": "[description]",
-      "constraints": "[description]",
-      "budget": "[description]",
+      "daily_hours": "[number]",
+      "best_time": "[description]",
       "support": "[description]"
     },
     "skills": {
-      "[skill_category]": {
-        "[skill_name]": "[1-5 rating]"
-      }
-    },
-    "experience": {
-      "past_attempts": "[description]",
-      "lessons_learned": "[description]",
-      "domain_expertise": "[description]"
+      "[skill_category]": "[level or list]"
     },
     "identified_strengths": ["[strength1]", "[strength2]"],
     "identified_gaps": ["[gap1]", "[gap2]"]
@@ -448,7 +517,7 @@ After user confirms:
 - `data/summaries_monthly.csv`
 - `data/pins.csv`
 
-### Step 9: Update Claude Memory
+### Phase 9: Update Claude Memory
 
 Set Memory pointers:
 
@@ -458,7 +527,7 @@ GP_LANG: [language]
 GP_LAST_SESSION_DATE: [today]
 ```
 
-### Step 10: Display Summary with Personalized Insights
+### Phase 10: Display Summary
 
 ```markdown
 ## Setup Complete!
@@ -470,10 +539,9 @@ GP_LAST_SESSION_DATE: [today]
 **Gap to Close**: [current] → [target]
 
 ### Your Profile Summary
-- **Weekly Capacity**: [X hours]
+- **Daily Capacity**: [X hours/day]
 - **Key Strength**: [strength] - we'll leverage this
 - **Key Gap**: [gap] - Q1 focuses on building this
-- **Risk Factors**: [identified risks]
 
 ### Personalized Strategy
 Based on your background, here's the recommended approach:
@@ -498,26 +566,11 @@ Based on your background, here's the recommended approach:
 Ready to start! Run `/goal-pilot:today` to begin.
 ```
 
-## Conversation Flow Tips
+## Important Notes
 
-When collecting background information:
-1. **Be conversational** - Don't dump all questions at once
-2. **Adapt questions** - Based on goal type, ask relevant questions only
-3. **Acknowledge answers** - Summarize what you heard before moving on
-4. **Probe deeper** - If answers are vague, ask follow-up questions
-5. **Identify patterns** - Connect past experiences to current plan
-
-Example flow:
-```
-User: I want to reach $10K MRR
-Claude: Great goal! To help you get there, I need to understand your starting point.
-        What's your current MRR, if any? And do you have an existing product?
-User: Currently $0, I have an MVP
-Claude: Got it - starting from zero with an MVP. That's actually a good position.
-        How much time can you dedicate weekly? And are you technical enough to
-        build/iterate on the product yourself?
-...
-```
+- Each phase uses AskUserQuestion tool - do NOT output markdown and wait
+- Complete all phases in order before generating milestones
+- Always run `date +%Y-%m-%d` before any date calculations
 
 ## Error Handling
 
